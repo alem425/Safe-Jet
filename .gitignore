@@ -55,6 +55,8 @@ captures/
 .idea/dictionaries
 .idea/libraries
 .idea/jarRepositories.xml
+.idea/deploymentTargetSelector.xml
+.idea/misc.xml
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
 
