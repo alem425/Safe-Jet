@@ -2,7 +2,7 @@
 
 ## Prerequisites
 
-- **Java Development Kit (JDK) 11 or higher**
+- **Java Development Kit (JDK) 17** (Required for Android Gradle Plugin)
 - **Android Studio** (latest stable version recommended)
 - **Git**
 
@@ -52,10 +52,15 @@ This project uses:
 - **AndroidX Activity:** 1.9.3
 - **AndroidX AppCompat:** 1.7.0
 - **Material Components:** 1.12.0
+- **ConstraintLayout:** 2.2.1
+- **JUnit:** 4.13.2
+- **AndroidX JUnit:** 1.3.0
+- **Espresso Core:** 3.7.0
 - **Compile SDK:** 36
 - **Target SDK:** 36
 - **Min SDK:** 33
-- **Java:** 11
+- **Java Compatibility:** 11 (Source/Target)
+- **Build Environment JDK:** 17 (Required for AGP 8.7.2)
 
 All dependency versions are centralized in `gradle/libs.versions.toml` to ensure consistency across all team members.
 
