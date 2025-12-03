@@ -3,9 +3,9 @@ name: Android CI
 # Trigger on every push to any branch and on pull requests
 on:
   push:
-    branches: [ '*' ]
+    branches: [ '**' ]
   pull_request:
-    branches: [ '*' ]
+    branches: [ '**' ]
 
 jobs:
   build:
