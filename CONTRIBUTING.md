@@ -26,7 +26,7 @@ git commit -m "feat: add amazing new feature"
 git push origin feature/your-feature-name
 ```
 
-Do steps 4-6 only when finished with your feature.
+**Do steps 4-6 only when finished with your feature and want to merge your branch back to main.**
 
 ### 4. Open a Pull Request (PR)
 1. Go to the [GitHub Repository](https://github.com/alem425/Final-Project)
