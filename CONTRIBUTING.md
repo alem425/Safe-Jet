@@ -4,7 +4,7 @@ Here is the workflow for adding new features to the project. We use **Pull Reque
 
 ## Workflow Steps
 
-### 1. Create a New Branch
+### 1. Create a New Branch: ONLY DO ONCE PER FEATURE
 **Never** push directly to `main`. Always create a feature branch first.
 
 ```bash
@@ -21,10 +21,12 @@ Write your code, add resources, and make sure everything works locally.
 
 ### 3. Commit and Push
 ```bash
-git add file_name
+git add file_path
 git commit -m "feat: add amazing new feature"
 git push origin feature/your-feature-name
 ```
+
+Do steps 4-6 only when finished with your feature.
 
 ### 4. Open a Pull Request (PR)
 1. Go to the [GitHub Repository](https://github.com/alem425/Final-Project)
