@@ -1,0 +1,9 @@
+<resources>
+
+    <!-- Remove purple tint and allow custom backgrounds -->
+    <style name="NoMaterialButtons" parent="@android:style/Widget.Button">
+        <item name="android:backgroundTint">@null</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
+</resources>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- HARD DROP SHADOW -->
+    <item android:top="32dp">
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+            <solid android:color="#140A2E" /> <!-- nearly black purple -->
+        </shape>
+    </item>
+
+    <!-- BUTTON SURFACE -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="30dp" />
+
+            <!-- STRONG GLOSS GRADIENT -->
+            <gradient
+                android:type="linear"
+                android:angle="90"
+                android:startColor="#FFFFFF"
+            android:centerColor="#A57CFF"
+            android:endColor="#5A1DF0" />
+        </shape>
+    </item>
+
+</layer-list>
+
+
+
+
+
+
+
+
+
+
