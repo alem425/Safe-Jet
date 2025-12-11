@@ -29,8 +29,15 @@ class HomePageViewActivity : AppCompatActivity() {
 
         startBtn.setOnClickListener {
             if (UserManager.isUserLoggedIn(this)) {
-                val intent = Intent(this, SelectionActivity::class.java)
-                startActivity(intent)
+                val savedPlane = UserManager.getSelectedPlane(this)
+                if (savedPlane != null) {
+                    val intent = Intent(this, GameActivity::class.java)
+                    intent.putExtra("selectedPlane", savedPlane)
+                    startActivity(intent)
+                } else {
+                    val intent = Intent(this, SelectionActivity::class.java)
+                    startActivity(intent)
+                }
             } else {
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)

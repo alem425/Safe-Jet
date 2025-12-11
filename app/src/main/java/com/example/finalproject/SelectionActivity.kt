@@ -20,6 +20,7 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun goToGame(selectedPlane: String) {
+        UserManager.savePlane(this, selectedPlane)
         val intent = Intent(this, GameActivity::class.java)
         intent.putExtra("selectedPlane", selectedPlane)
         startActivity(intent)

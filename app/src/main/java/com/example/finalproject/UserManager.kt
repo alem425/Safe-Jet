@@ -7,6 +7,8 @@ object UserManager {
     private const val PREF_NAME = "FinalProjectPrefs"
     private const val KEY_USERNAME = "username"
 
+    private const val KEY_SELECTED_PLANE = "selected_plane"
+
     private fun getPrefs(context: Context): SharedPreferences {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     }
@@ -22,8 +24,16 @@ object UserManager {
     fun saveUser(context: Context, username: String) {
         getPrefs(context).edit().putString(KEY_USERNAME, username).apply()
     }
+    
+    fun getSelectedPlane(context: Context): String? {
+        return getPrefs(context).getString(KEY_SELECTED_PLANE, null)
+    }
+
+    fun savePlane(context: Context, plane: String) {
+        getPrefs(context).edit().putString(KEY_SELECTED_PLANE, plane).apply()
+    }
 
     fun logout(context: Context) {
-        getPrefs(context).edit().remove(KEY_USERNAME).apply()
+        getPrefs(context).edit().remove(KEY_USERNAME).remove(KEY_SELECTED_PLANE).apply()
     }
 }
