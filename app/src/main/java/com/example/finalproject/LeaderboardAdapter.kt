@@ -22,8 +22,26 @@ class LeaderboardAdapter(private var scores: List<UserScore>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val score = scores[position]
-        holder.usernameText.text = "${position + 1}. ${score.username}"
+        var medal = ""
+        if (position == 0) {
+            medal = "🥇 "
+        } else if (position == 1) {
+            medal = "🥈 "
+        } else if (position == 2) {
+            medal = "🥉 "
+        }
+
+        holder.usernameText.text = "$medal${position + 1}. ${score.username}"
         holder.scoreText.text = score.maxScore.toString()
+        val currentUsername = UserManager.getUsername(holder.itemView.context)
+
+        if (score.username == currentUsername) {
+            holder.usernameText.setTypeface(holder.usernameText.typeface, android.graphics.Typeface.BOLD)
+            holder.scoreText.setTypeface(holder.scoreText.typeface, android.graphics.Typeface.BOLD)
+        } else {
+            holder.usernameText.setTypeface(holder.usernameText.typeface, android.graphics.Typeface.NORMAL)
+            holder.scoreText.setTypeface(holder.scoreText.typeface, android.graphics.Typeface.NORMAL)
+        }
     }
 
     override fun getItemCount() = scores.size
