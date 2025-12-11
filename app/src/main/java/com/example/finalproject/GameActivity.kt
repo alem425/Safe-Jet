@@ -20,6 +20,12 @@ class GameActivity : AppCompatActivity() {
         // Example: after game finishes, send a fake score
         val score = 15 // placeholder number
 
+        // Update High Score in Firebase
+        val username = UserManager.getUsername(this)
+        if (username != null) {
+            FirebaseManager.updateHighScore(username, score)
+        }
+
         // Send the score to the Leaderboard screen
         val intent = Intent(this, LeaderboardActivity::class.java)
         intent.putExtra("score", score)

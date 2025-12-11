@@ -28,8 +28,13 @@ class HomePageViewActivity : AppCompatActivity() {
         val leaderboardBtn = findViewById<Button>(R.id.leaderboardBtn)
 
         startBtn.setOnClickListener {
-            val intent = Intent(this, SelectionActivity::class.java)
-            startActivity(intent)
+            if (UserManager.isUserLoggedIn(this)) {
+                val intent = Intent(this, SelectionActivity::class.java)
+                startActivity(intent)
+            } else {
+                val intent = Intent(this, LoginActivity::class.java)
+                startActivity(intent)
+            }
         }
 
         leaderboardBtn.setOnClickListener {
