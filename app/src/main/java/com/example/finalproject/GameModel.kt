@@ -217,6 +217,9 @@ class GameModel(context: Context): SensorEventListener {
 
             // Keep plane within screen bounds (0 to 1)
             plane.x = plane.x.coerceIn(0.1f, 0.9f)
+            
+            // Debug Log
+            android.util.Log.d("GameSensor", "Tilt: $tiltX, PlaneX: ${plane.x}")
         }
     }
 
