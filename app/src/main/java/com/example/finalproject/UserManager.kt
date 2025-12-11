@@ -36,6 +36,25 @@ object UserManager {
     }
 
     fun logout(context: Context) {
-        getPrefs(context).edit().remove(KEY_USERNAME).remove(KEY_SELECTED_PLANE).apply()
+        getPrefs(context).edit().remove(KEY_USERNAME).remove(KEY_SELECTED_PLANE).remove(KEY_HAS_RATED).remove(KEY_RATING).apply()
+    }
+
+    // Rating System
+    private const val KEY_HAS_RATED = "has_rated"
+    private const val KEY_RATING = "user_rating"
+
+    fun hasRated(context: Context): Boolean {
+        return getPrefs(context).getBoolean(KEY_HAS_RATED, false)
+    }
+
+    fun getRating(context: Context): Int {
+        return getPrefs(context).getInt(KEY_RATING, 0)
+    }
+
+    fun saveRating(context: Context, rating: Int) {
+        getPrefs(context).edit()
+            .putBoolean(KEY_HAS_RATED, true)
+            .putInt(KEY_RATING, rating)
+            .apply()
     }
 }

@@ -89,4 +89,9 @@ object FirebaseManager {
                 }
             })
     }
+
+    // Save user rating
+    fun saveRating(username: String, rating: Int) {
+        usersRef.child(username).child("rating").setValue(rating)
+    }
 }
