@@ -213,7 +213,7 @@ class GameView @JvmOverloads constructor(
         paint.color = Color.RED
         for (obstacle in model.getObstacles()) {
              val radius = when (obstacle.type) {
-                ObstacleType.COIN -> 0.09f
+                ObstacleType.COIN -> 0.12f
                 ObstacleType.DANGER -> 0.108f
                 ObstacleType.STAR -> 0.075f
             }

@@ -165,7 +165,7 @@ class GameModel(context: Context): SensorEventListener {
             
             // Radius depends on type
             val obstacleRadius = when (obstacle.type) {
-                ObstacleType.COIN -> 0.09f   
+                ObstacleType.COIN -> 0.12f   
                 ObstacleType.DANGER -> 0.108f  
                 ObstacleType.STAR -> 0.075f    
             }
