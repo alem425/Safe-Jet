@@ -6,6 +6,8 @@ import android.content.SharedPreferences
 object UserManager {
     private const val PREF_NAME = "FinalProjectPrefs"
     private const val KEY_USERNAME = "username"
+
+
     private const val KEY_SELECTED_PLANE = "selected_plane"
 
     private fun getPrefs(context: Context): SharedPreferences {
@@ -23,6 +25,7 @@ object UserManager {
     fun saveUser(context: Context, username: String) {
         getPrefs(context).edit().putString(KEY_USERNAME, username).apply()
     }
+    
 
     fun getSelectedPlane(context: Context): String? {
         return getPrefs(context).getString(KEY_SELECTED_PLANE, null)

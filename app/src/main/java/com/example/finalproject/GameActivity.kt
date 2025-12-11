@@ -98,5 +98,6 @@ class GameActivity : AppCompatActivity(), GameModel.GameStateListener {
         
         // Optionally pass score to Leaderboard logic if we were navigating away
         // But for now we stay in GameView and wait for restart tap
+
     }
 }

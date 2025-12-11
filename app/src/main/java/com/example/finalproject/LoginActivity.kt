@@ -26,14 +26,21 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Check if user exists in Firebase
+
             FirebaseManager.checkUsernameExists(username) { exists ->
                 if (exists) {
                     errorText.text = "Username currently taken, please choose another"
                     errorText.visibility = View.VISIBLE
                 } else {
+                    // Create user in Firebase
                     FirebaseManager.createUser(username) { success ->
                         if (success) {
+                            // Save locally
                             UserManager.saveUser(this, username)
+
+                            // Navigate to Selection
+
                             val intent = Intent(this, SelectionActivity::class.java)
                             startActivity(intent)
                             finish()

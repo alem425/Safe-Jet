@@ -1,4 +1,4 @@
-# FinalProject - Android App
+# FinalProject - Android App (SafeJet)
 
 ## Prerequisites
 
