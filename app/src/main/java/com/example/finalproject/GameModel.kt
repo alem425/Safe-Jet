@@ -33,8 +33,9 @@ data class Plane(
     var x: Float = 0.5f,   // X position (0-1 relative to screen width)
     val y: Float = 0.8f,   // Y position (fixed near bottom)
     var type: String = "plane1",
-    val width: Float = 0.1f,   // Size relative to screen
-    val height: Float = 0.1f
+    var lives: Int = 3,
+    val width: Float = 0.20f,   // Size relative to screen
+    val height: Float = 0.20f
 )
 
 //data class for score
@@ -85,6 +86,7 @@ class GameModel(context: Context): SensorEventListener {
     // Game listeners for UI updates
     interface GameStateListener {
         fun onScoreUpdated()
+        fun onLivesUpdated()
         fun onObstaclesUpdated()
         fun onGameOver(finalScore: Int)
     }
@@ -160,7 +162,13 @@ class GameModel(context: Context): SensorEventListener {
             val obstacle = iterator.next()
             val obstacleCenterX = obstacle.x
             val obstacleCenterY = obstacle.y
-            val obstacleRadius = 0.03f  // Approximate size
+            
+            // Radius depends on type
+            val obstacleRadius = when (obstacle.type) {
+                ObstacleType.COIN -> 0.12f   
+                ObstacleType.DANGER -> 0.108f  
+                ObstacleType.STAR -> 0.075f    
+            }
 
             // Simple circle collision detection
             val dx = planeCenterX - obstacleCenterX
@@ -179,12 +187,17 @@ class GameModel(context: Context): SensorEventListener {
                         notifyScoreUpdated()
                     }
                     ObstacleType.DANGER -> {
-                        // Game over on danger hit
-                        gameState = GameState.GAME_OVER
-                        score.total = score.calculateTotal()
-                        notifyGameOver(score.total)
-                        sensorManager.unregisterListener(this)
-                        return
+                        // Game over on danger hit -> NOW subtract life
+                        plane.lives--
+                        notifyLivesUpdated()
+                        
+                        if (plane.lives <= 0) {
+                            gameState = GameState.GAME_OVER
+                            score.total = score.calculateTotal()
+                            notifyGameOver(score.total)
+                            sensorManager.unregisterListener(this)
+                            return
+                        }
                     }
                 }
                 iterator.remove()
@@ -204,6 +217,9 @@ class GameModel(context: Context): SensorEventListener {
 
             // Keep plane within screen bounds (0 to 1)
             plane.x = plane.x.coerceIn(0.1f, 0.9f)
+            
+            // Debug Log
+            android.util.Log.d("GameSensor", "Tilt: $tiltX, PlaneX: ${plane.x}")
         }
     }
 
@@ -229,6 +245,7 @@ class GameModel(context: Context): SensorEventListener {
         gameState = GameState.PLAYING
         gameStartTime = System.currentTimeMillis()
         plane.x = 0.5f
+        plane.lives = 3
         score.coins = 0
         score.stars = 0
         score.timeAlive = 0
@@ -253,6 +270,10 @@ class GameModel(context: Context): SensorEventListener {
 
     private fun notifyScoreUpdated() {
         listeners.forEach { it.onScoreUpdated() }
+    }
+
+    private fun notifyLivesUpdated() {
+        listeners.forEach { it.onLivesUpdated() }
     }
 
     private fun notifyObstaclesUpdated() {

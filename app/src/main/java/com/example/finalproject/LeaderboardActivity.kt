@@ -13,6 +13,7 @@ class LeaderboardActivity : AppCompatActivity() {
         val scoreTextView = findViewById<TextView>(R.id.finalScore)
         scoreTextView.text = "Score: $score"
 
+
         val recyclerView = findViewById<androidx.recyclerview.widget.RecyclerView>(R.id.leaderboardRecyclerView)
         recyclerView.layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
         val adapter = LeaderboardAdapter(emptyList())

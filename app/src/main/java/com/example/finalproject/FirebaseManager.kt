@@ -10,6 +10,7 @@ object FirebaseManager {
     private val usersRef = database.getReference("users")
 
     // Check if a username already exists in the "users" node
+
     fun checkUsernameExists(username: String, callback: (Boolean) -> Unit) {
         usersRef.child(username).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -18,12 +19,14 @@ object FirebaseManager {
 
             override fun onCancelled(error: DatabaseError) {
                 // Determine how to handle error, for now treat as not exists or fail safe
+
                 callback(false) 
             }
         })
     }
 
     // Create a new user with initial score 0
+
     fun createUser(username: String, callback: (Boolean) -> Unit) {
         val newUser = UserScore(username, 0)
         usersRef.child(username).setValue(newUser)
@@ -32,12 +35,14 @@ object FirebaseManager {
     }
 
     // Update high score if newScore > currentScore
+
     fun updateHighScore(username: String, newScore: Int) {
         usersRef.child(username).runTransaction(object : com.google.firebase.database.Transaction.Handler {
             override fun doTransaction(currentData: com.google.firebase.database.MutableData): com.google.firebase.database.Transaction.Result {
                 val p = currentData.getValue(UserScore::class.java)
                 if (p == null) {
                     // User doesn't exist? Create them
+
                     currentData.value = UserScore(username, newScore)
                     return com.google.firebase.database.Transaction.success(currentData)
                 }
@@ -55,6 +60,7 @@ object FirebaseManager {
                 currentData: DataSnapshot?
             ) {
                 // Transaction completed
+
             }
         })
     }
@@ -62,6 +68,7 @@ object FirebaseManager {
     // Get top scores
     fun getLeaderboard(limit: Int, callback: (List<UserScore>) -> Unit) {
         // queryOrderedByChild("maxScore") sorts ascending, so we need to reverse it client side or use limitToLast
+
         usersRef.orderByChild("maxScore").limitToLast(limit)
             .addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
@@ -73,6 +80,7 @@ object FirebaseManager {
                         }
                     }
                     // Reverse to get highest first
+
                     callback(list.reversed())
                 }
 

@@ -27,6 +27,7 @@ class LoginActivity : AppCompatActivity() {
             }
 
             // Check if user exists in Firebase
+
             FirebaseManager.checkUsernameExists(username) { exists ->
                 if (exists) {
                     errorText.text = "Username currently taken, please choose another"
@@ -39,6 +40,7 @@ class LoginActivity : AppCompatActivity() {
                             UserManager.saveUser(this, username)
 
                             // Navigate to Selection
+
                             val intent = Intent(this, SelectionActivity::class.java)
                             startActivity(intent)
                             finish()
