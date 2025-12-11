@@ -21,6 +21,8 @@ class GameView @JvmOverloads constructor(
     private var coinBitmap: Bitmap? = null
     private var starBitmap: Bitmap? = null
     private var dangerBitmap: Bitmap? = null
+    private var starOutlineBitmap: Bitmap? = null
+    private var rateStarBitmap: Bitmap? = null
 
     // Paint for text and drawing
     private val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
@@ -44,6 +46,8 @@ class GameView @JvmOverloads constructor(
     // Game over state
     private var gameOver = false
     private var finalScore = 0
+    private var showRating = false
+    private var currentRating = 0
 
     // Obstacle sizes (in pixels)
     private val obstacleSize = 80f
@@ -69,6 +73,13 @@ class GameView @JvmOverloads constructor(
             // Load danger/obstacle image (0.4)
             val originalDanger = BitmapFactory.decodeResource(resources, R.drawable.bird)
             dangerBitmap = scaleBitmap(originalDanger, 0.4f)
+
+            // Load rating stars
+            val originalStarOutline = BitmapFactory.decodeResource(resources, R.drawable.star_outline)
+            starOutlineBitmap = scaleBitmap(originalStarOutline, 0.025f) // Reduced size by another 50% (0.15 * 0.5 = 0.075)
+
+            val originalRateStar = BitmapFactory.decodeResource(resources, R.drawable.rate_star)
+            rateStarBitmap = scaleBitmap(originalRateStar, 0.075f) // Reduced size by another 50%
 
         } catch (e: Exception) {
             // If images don't exist, create colored circles as fallback
@@ -406,10 +417,30 @@ class GameView @JvmOverloads constructor(
         textPaint.textAlign = Paint.Align.CENTER
         canvas.drawText("VIEW LEADERBOARD", centerX, height / 3f + 300f, textPaint)
 
+        // Rating System
+        if (showRating) {
+            drawRatingStars(canvas, centerX, height / 3f + 400f)
+        }
+
         // Reset text paint
         textPaint.textAlign = Paint.Align.LEFT
         textPaint.color = Color.WHITE
         textPaint.textSize = 50f
+    }
+
+    private fun drawRatingStars(canvas: Canvas, centerX: Float, startY: Float) {
+        val starWidth = (starOutlineBitmap?.width ?: 100).toFloat()
+        val spacing = 20f
+        val totalWidth = (5 * starWidth) + (4 * spacing)
+        var currentX = centerX - (totalWidth / 2) + (starWidth / 2) // Start from left logic with centering
+
+        for (i in 1..5) {
+            val bitmap = if (i <= currentRating) rateStarBitmap else starOutlineBitmap
+            bitmap?.let {
+                canvas.drawBitmap(it, currentX - it.width / 2, startY, null)
+            }
+            currentX += starWidth + spacing
+        }
     }
     
     private fun scaleBitmap(bitmap: Bitmap, scale: Float): Bitmap {
@@ -439,6 +470,24 @@ class GameView @JvmOverloads constructor(
         if (y > centerY + 250 && y < centerY + 350) {
             return GameAction.LEADERBOARD
         }
+
+        // Rating area
+        if (showRating && y > centerY + 400f && y < centerY + 400f + (starOutlineBitmap?.height ?: 100)) {
+            val starWidth = (starOutlineBitmap?.width ?: 100).toFloat()
+            val spacing = 20f
+            val totalWidth = (5 * starWidth) + (4 * spacing)
+            val startX = centerX - (totalWidth / 2)
+            
+            if (x >= startX && x <= startX + totalWidth) {
+                val index = ((x - startX) / (starWidth + spacing)).toInt() + 1
+                if (index in 1..5) {
+                    currentRating = index
+                    saveRating(index)
+                    invalidate()
+                    return GameAction.NONE
+                }
+            }
+        }
         
         // Default to restart if they tap anywhere else? No, let's be specific or default to restart if huge tap.
         // User asked for "option to see leaderboard".
@@ -467,6 +516,10 @@ class GameView @JvmOverloads constructor(
     override fun onGameOver(finalScore: Int) {
         this.gameOver = true
         this.finalScore = finalScore
+        // Check if user has already rated
+        this.showRating = !UserManager.hasRated(context) // Disabled for testing as requested
+        this.currentRating = if (showRating) 0 else UserManager.getRating(context)
+        // User request: "if they already have then it wont [appear]" -> So showRating = false if hasRated.
         invalidate()
     }
 
@@ -475,6 +528,16 @@ class GameView @JvmOverloads constructor(
         gameOver = false
         gameModel?.restartGame()
         invalidate()
+    }
+
+    private fun saveRating(rating: Int) {
+        UserManager.saveRating(context, rating)
+        val username = UserManager.getUsername(context)
+        if (username != null) {
+            FirebaseManager.saveRating(username, rating)
+        }
+        // Keep showing the stars but filled? "turns stars... into rate star png"
+        // It doesn't say "disappear". But on NEXT death it won't appear.
     }
 
     override fun onDetachedFromWindow() {
