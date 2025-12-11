@@ -120,9 +120,9 @@ class GameView @JvmOverloads constructor(
     private fun loadPlaneBitmap(type: String): Bitmap {
         // Try to load from resources first
         val resId = when (type) {
-            "plane1" -> R.drawable.plane_black
-            "plane2" -> R.drawable.plane_blue
-            "plane3" -> R.drawable.plane_red
+            "plane_black" -> R.drawable.plane_black
+            "plane_blue" -> R.drawable.plane_blue
+            "plane_red" -> R.drawable.plane_red
             else -> R.drawable.plane_black
         }
 
@@ -142,10 +142,10 @@ class GameView @JvmOverloads constructor(
         val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.FILL
             color = when (type) {
-                "plane1" -> Color.RED
-                "plane2" -> Color.GREEN
-                "plane3" -> Color.MAGENTA
-                else -> Color.RED
+                "plane_black" -> Color.BLACK
+                "plane_blue" -> Color.BLUE
+                "plane_red" -> Color.RED
+                else -> Color.BLACK
             }
         }
 
