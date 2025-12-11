@@ -3,28 +3,78 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:background="@drawable/leaderboard_background">
 
+    <!-- Final score from last run -->
     <TextView
         android:id="@+id/finalScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Score: 0"
         android:textSize="24sp"
+        android:textStyle="bold"
         android:textAlignment="center"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium" />
 
+    <!-- Section title -->
     <TextView
+        android:id="@+id/topScoresLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Top Scores"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp"/>
+        android:layout_marginBottom="8dp"
+        android:fontFamily="sans-serif-medium" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp" />
+
+    <!-- Leaderboard list -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/leaderboardRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Navigation buttons at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_marginTop="24dp">
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:text="Home"
+            android:textSize="24sp"
+            android:layout_margin="12dp"
+            android:background="@drawable/btn_3d"
+            android:backgroundTint="@null"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#2A2A2A" />
+
+        <Button
+            android:id="@+id/playAgainButton"
+            android:layout_width="180dp"
+            android:layout_height="60dp"
+            android:text="Play Again"
+            android:textSize="24sp"
+            android:layout_margin="12dp"
+            android:background="@drawable/btn_3d"
+            android:backgroundTint="@null"
+            android:fontFamily="sans-serif-medium"
+            android:textColor="#2A2A2A" />
+
+    </LinearLayout>
 
 </LinearLayout>
