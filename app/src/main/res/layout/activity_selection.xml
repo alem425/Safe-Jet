@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:padding="24dp">
+    android:padding="24dp"
+    android:background="#bde0f2">
 
     <TextView
         android:id="@+id/selectTitle"
@@ -15,24 +16,36 @@
         android:textStyle="bold"
         android:layout_marginBottom="40dp"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/option1"
         android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="Plane 1"
-        android:layout_marginBottom="20dp"/>
+        android:layout_height="150dp"
+        android:src="@drawable/plane_black"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:padding="40dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="Select Plane 1"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/option2"
         android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="Plane 2"
-        android:layout_marginBottom="20dp"/>
+        android:layout_height="150dp"
+        android:src="@drawable/plane_blue"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:padding="40dp"
+        android:layout_marginBottom="10dp"
+        android:contentDescription="Select Plane 2"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/option3"
         android:layout_width="250dp"
-        android:layout_height="60dp"
-        android:text="Plane 3"/>
+        android:layout_height="150dp"
+        android:src="@drawable/plane_red"
+        android:background="@android:color/transparent"
+        android:scaleType="fitCenter"
+        android:padding="40dp"
+        android:contentDescription="Select Plane 3"/>
 
 </LinearLayout>

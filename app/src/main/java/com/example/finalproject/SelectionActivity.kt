@@ -10,13 +10,13 @@ class SelectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selection)
 
-        val option1 = findViewById<Button>(R.id.option1)
-        val option2 = findViewById<Button>(R.id.option2)
-        val option3 = findViewById<Button>(R.id.option3)
+        val option1 = findViewById<android.widget.ImageButton>(R.id.option1)
+        val option2 = findViewById<android.widget.ImageButton>(R.id.option2)
+        val option3 = findViewById<android.widget.ImageButton>(R.id.option3)
 
-        option1.setOnClickListener { goToGame("plane1") }
-        option2.setOnClickListener { goToGame("plane2") }
-        option3.setOnClickListener { goToGame("plane3") }
+        option1.setOnClickListener { goToGame("plane_black") }
+        option2.setOnClickListener { goToGame("plane_blue") }
+        option3.setOnClickListener { goToGame("plane_red") }
     }
 
     private fun goToGame(selectedPlane: String) {
