@@ -367,6 +367,25 @@ class GameView @JvmOverloads constructor(
         textPaint.textAlign = Paint.Align.LEFT
         textPaint.color = Color.WHITE
         textPaint.textSize = 50f
+
+        // Add speed bonus indicator - Access speedMultiplier from the score object
+        val speedMultiplier = score.speedMultiplier  // ← Get it from score
+        val speedBonusText = when {
+            speedMultiplier >= 1.8f -> "⚡ 2x ⚡"
+            speedMultiplier >= 1.4f -> "⚡ 1.5x"
+            speedMultiplier <= 0.7f -> "  🐢  "
+            speedMultiplier <= 0.9f -> "  🐢  "
+            else -> "  \uD83D\uDC4D" //<-- thats a thumb
+        }
+
+        if (speedBonusText.isNotEmpty()) {
+            val bonusPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+                color = if (speedMultiplier > 1.0f) Color.BLACK else Color.BLACK
+                textSize = 40f
+                typeface = Typeface.DEFAULT_BOLD
+            }
+            canvas.drawText(speedBonusText, width - 200f, 180f, bonusPaint)
+        }
     }
 
 

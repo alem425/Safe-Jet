@@ -4,6 +4,7 @@ import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
+import android.util.Log
 import kotlin.math.abs
 
 //game state enum
@@ -43,11 +44,28 @@ data class Score(
     var coins: Int = 0,
     var stars: Int = 0,
     var timeAlive: Long = 0, //milliseconds
-    var total: Int = 0
+    var total: Int = 0,
+    var speedMultiplier: Float = 1.0f
 ) {
     fun calculateTotal(): Int{
         // coin = 10 points, star = 100 points, time = 1 point per second
-        return (coins * 10) + (stars * 100) + (timeAlive / 1000).toInt()
+        //base values
+        val coinScore = coins * 10
+        val starScore = stars * 100
+        val timeScore = (timeAlive / 1000).toInt()
+
+        // Apply speed bonus (higher speed = more points)
+        val speedBonus = when {
+            speedMultiplier >= 1.8f -> 2.0f  // 2x points for very fast
+            speedMultiplier >= 1.4f -> 1.5f  // 1.5x points for fast
+            speedMultiplier <= 0.7f -> 0.7f  // 0.7x points for very slow
+            speedMultiplier <= 0.9f -> 0.8f  // 0.8x points for slow
+            else -> 1.0f                     // Normal speed = normal points
+        }
+
+        val baseTotal = coinScore + starScore + timeScore
+        return (baseTotal * speedBonus).toInt()
+//        return (coins * 10) + (stars * 100) + (timeAlive / 1000).toInt()
     }
 }
 
@@ -70,6 +88,7 @@ class GameModel(context: Context): SensorEventListener {
     private val obstacles = mutableListOf<Obstacle>()
     private var lastObstacleTime: Long = 0
     private val obstacleInterval: Long = 1000  // Spawn every 1 second
+    var obstacleSpeedMultiplier: Float = 1.0f //default normal speed
 
     // Screen dimensions (set from View)
     var screenWidth: Int = 1080
@@ -105,6 +124,9 @@ class GameModel(context: Context): SensorEventListener {
 
         // Update time alive
         score.timeAlive = currentTime - gameStartTime
+
+        // Pass speed multiplier to score
+        score.speedMultiplier = obstacleSpeedMultiplier
 
         // Spawn new obstacles
         if (currentTime - lastObstacleTime > obstacleInterval) {
@@ -143,12 +165,14 @@ class GameModel(context: Context): SensorEventListener {
         }
 
         // Different speeds for different types
-        val speed = when (type) {
+        val baseSpeed = when (type) {
             ObstacleType.COIN -> 0.01f
             ObstacleType.STAR -> 0.015f
             ObstacleType.DANGER -> 0.02f
         }
-
+        // Apply speed multiplier
+        val speed = baseSpeed * obstacleSpeedMultiplier
+        Log.d("SPEED", "Current multiplier: $obstacleSpeedMultiplier") //testing
         obstacles.add(Obstacle(x = randomX, y = 0f, type = type, speed = speed))
     }
 
