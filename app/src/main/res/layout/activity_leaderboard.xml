@@ -56,24 +56,30 @@
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:text="Home"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:layout_margin="12dp"
             android:background="@drawable/btn_3d"
             android:backgroundTint="@null"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#2A2A2A" />
+            android:fontFamily="@font/pacifico_regular"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:paddingTop="0dp"
+            android:paddingBottom="6dp" />
 
         <Button
             android:id="@+id/playAgainButton"
             android:layout_width="180dp"
             android:layout_height="60dp"
             android:text="Play Again"
-            android:textSize="24sp"
+            android:textSize="26sp"
             android:layout_margin="12dp"
             android:background="@drawable/btn_3d"
             android:backgroundTint="@null"
-            android:fontFamily="sans-serif-medium"
-            android:textColor="#2A2A2A" />
+            android:fontFamily="@font/pacifico_regular"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:paddingTop="0dp"
+            android:paddingBottom="6dp"/>
 
     </LinearLayout>
 
