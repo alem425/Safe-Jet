@@ -8,13 +8,37 @@
     android:background="#bde0f2">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Diffuculty"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <SeekBar
+        android:id="@+id/speedSeekBar"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:max="100"
+        android:layout_gravity="center"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/speedLabel"
+        android:text="Normal (100%)"
+        android:textSize="18sp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        />
+
+    <TextView
         android:id="@+id/selectTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Select Your Jet"
         android:textSize="28sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="40dp"/>
+        android:textStyle="bold"/>
 
     <ImageButton
         android:id="@+id/option1"

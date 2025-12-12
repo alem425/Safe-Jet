@@ -46,6 +46,12 @@ class GameActivity : AppCompatActivity(), GameModel.GameStateListener {
         gameView.setGameModel(gameModel)
         gameModel.addListener(this)
 
+        // Setup speed bar
+        // Get speed multiplier from shared preferences
+        val prefs = getSharedPreferences("game_prefs", MODE_PRIVATE)
+        val speedMultiplier = prefs.getFloat("obstacle_speed", 1.0f)
+        gameModel.obstacleSpeedMultiplier = speedMultiplier
+
         // Setup Change Plane button
         val btnChangePlane = findViewById<Button>(R.id.btnChangePlane)
         btnChangePlane.setOnClickListener {
