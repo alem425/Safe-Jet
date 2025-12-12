@@ -25,8 +25,8 @@ class SelectionActivity : AppCompatActivity() {
         // Update the label to match
         val percentage = (savedSpeed * 100).toInt()
         speedLabel.text = when {
-            progress < 25 -> "Slow ($percentage%)"
-            progress > 75 -> "Fast ($percentage%)"
+            progress < 25 -> "Easy ($percentage%)"
+            progress > 75 -> "Hard ($percentage%)"
             else -> "Normal ($percentage%)"
         }
 
