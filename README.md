@@ -1,5 +1,8 @@
 # FinalProject - Android App (SafeJet)
 
+# Done By: Alexander Morgan (25% of project) Fadeela Ali (25% of project) Matthew Nguyen (25% of project) Melodie Galamo (25% of project)
+# Date: December 11, 2025
+
 ## Prerequisites
 
 - **Java Development Kit (JDK) 17** (Required for Android Gradle Plugin)
