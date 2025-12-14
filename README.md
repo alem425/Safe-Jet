@@ -3,13 +3,14 @@
 # Done By: Alexander Morgan (25% of project) Fadeela Ali (25% of project) Matthew Nguyen (25% of project) Melodie Galamo (25% of project)
 # Date: December 11, 2025
 
+### Welcome to our fun little android game application where you will play as one of three jets, avoiding obstacles, stacking on points, and climbing the leaderboard!
 ## Prerequisites
 
 - **Java Development Kit (JDK) 17** (Required for Android Gradle Plugin)
 - **Android Studio** (latest stable version recommended)
 - **Git**
 
-## Setup Instructions for Team Members
+## Setup Instructions
 
 ### 1. Clone the Repository
 
@@ -66,23 +67,6 @@ This project uses:
 - **Build Environment JDK:** 17 (Required for AGP 8.7.2)
 
 All dependency versions are centralized in `gradle/libs.versions.toml` to ensure consistency across all team members.
-
-## Important Notes
-
-### DO NOT Commit
-
-- `local.properties` - Contains machine-specific paths
-- `.idea/` folder contents (except what's needed)
-- `build/` directories
-- `*.iml` files
-
-### DO Commit
-
-- `gradlew` and `gradlew.bat` scripts
-- `gradle/wrapper/` directory
-- `gradle/libs.versions.toml`
-- All `.gradle.kts` build files
-- Source code and resources
 
 ## Troubleshooting
 
